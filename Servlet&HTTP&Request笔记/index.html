@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="编译原理第一章, Striver的个人博客空间">
-    <meta name="description" content="编译原理第一章总结">
+    <meta name="keywords" content="Servlet&amp;HTTP&amp;Request, Striver的个人博客空间">
+    <meta name="description" content="Servlet&amp;HTTP&amp;Request笔记">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>编译原理第一章 | Striver的个人博客空间</title>
+    <title>Servlet&amp;HTTP&amp;Request | Striver的个人博客空间</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/me.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -322,12 +322,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/18.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">编译原理第一章</h1>
+                    <h1 class="description center-align post-title">Servlet&amp;HTTP&amp;Request</h1>
                 </div>
             </div>
         </div>
@@ -443,8 +443,28 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">
-                                <span class="chip bg-color">编译原理</span>
+                            <a href="/tags/JavaWeb/">
+                                <span class="chip bg-color">JavaWeb</span>
+                            </a>
+                        
+                            <a href="/tags/Web/">
+                                <span class="chip bg-color">Web</span>
+                            </a>
+                        
+                            <a href="/tags/bilibili/">
+                                <span class="chip bg-color">bilibili</span>
+                            </a>
+                        
+                            <a href="/tags/Servlet/">
+                                <span class="chip bg-color">Servlet</span>
+                            </a>
+                        
+                            <a href="/tags/HTTP/">
+                                <span class="chip bg-color">HTTP</span>
+                            </a>
+                        
+                            <a href="/tags/Request/">
+                                <span class="chip bg-color">Request</span>
                             </a>
                         
                     </div>
@@ -468,7 +488,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>Publish Date:&nbsp;&nbsp;
-                    2021-11-18
+                    2021-11-21
                 </div>
                 
 
@@ -489,483 +509,474 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="1-1-什么叫编译程序"><a href="#1-1-什么叫编译程序" class="headerlink" title="1.1 什么叫编译程序"></a>1.1 什么叫编译程序</h3><ol>
-<li><p>翻译程序：把某种语言的程序转换成另一种语言的程序</p>
+                <h1 id="今日内容："><a href="#今日内容：" class="headerlink" title="今日内容："></a>今日内容：</h1><ol>
+<li>Servlet</li>
+<li>HTTP协议</li>
+<li>Request</li>
+</ol>
+<h2 id="Servlet："><a href="#Servlet：" class="headerlink" title="Servlet："></a>Servlet：</h2><ol>
+<li><p>概念</p>
 </li>
-<li><p>两种翻译方式</p>
+<li><p>步骤</p>
+</li>
+<li><p>执行原理</p>
+</li>
+<li><p>生命周期</p>
+</li>
+<li><p>Servlet3.0 注解配置</p>
+</li>
+<li><p>Servlet的体系结构<br> Servlet – 接口</p>
+<pre><code> |
+</code></pre>
+<p> GenericServlet – 抽象类</p>
+<pre><code> |
+</code></pre>
+<p> HttpServlet  – 抽象类</p>
+<ul>
+<li>GenericServlet：将Servlet接口中其他的方法做了默认空实现，只将service()方法作为抽象<ul>
+<li>将来定义Servlet类时，可以继承GenericServlet，实现service()方法即可</li>
+</ul>
+</li>
+<li>HttpServlet：对http协议的一种封装，简化操作<ol>
+<li>定义类继承HttpServlet</li>
+<li>复写doGet/doPost方法</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>Servlet相关配置</p>
 <ol>
-<li><p>编译</p>
-<ul>
-<li>目标语言如汇编语言之类的“低级语言”这样的翻译程序称之为编译程序</li>
-</ul>
+<li>urlpartten:Servlet访问路径<ol>
+<li>一个Servlet可以定义多个访问路径 ： @WebServlet({“/d4”,”/dd4”,”/ddd4”})</li>
+<li>路径定义规则：<ol>
+<li>/xxx：路径匹配</li>
+<li>/xxx/xxx:多层路径，目录结构</li>
+<li>*.do：扩展名匹配</li>
+</ol>
 </li>
-<li><p>解释</p>
-<ul>
-<li>输入源程序，解释一句后就提交计算机执行一句，并不形成目标程序</li>
-</ul>
+</ol>
 </li>
 </ol>
 </li>
 </ol>
-<h3 id="1-2-编译过程概述"><a href="#1-2-编译过程概述" class="headerlink" title="1.2 编译过程概述"></a>1.2 编译过程概述</h3><ol>
-<li><p>词法分析</p>
+<h2 id="HTTP："><a href="#HTTP：" class="headerlink" title="HTTP："></a>HTTP：</h2><ul>
+<li><p>概念：Hyper Text Transfer Protocol 超文本传输协议</p>
+<ul>
+<li><p>传输协议：定义了，客户端和服务器端通信时，发送数据的格式</p>
+</li>
+<li><p>特点：</p>
 <ol>
-<li><p>输入源程序，对构成源程序的字符串进行扫描和分解，识别出一个个单词（也称单词符号，或简称符号）</p>
-</li>
-<li><p>单词通常包括：保留字（if，while等等）、标识符、界符（标点符号，左右括号等等、算符和常量等</p>
-</li>
-</ol>
-<ul>
-<li>例：<br>  For k:=i to 100 do<br>  词法分析结果：<ul>
-<li>for 保留字</li>
-<li>k 标识符</li>
-<li>:= 赋值号</li>
-<li>1 整常数</li>
-<li>to 保留字</li>
-<li>100 整常数</li>
-<li>do 保留字</li>
-</ul>
-</li>
-</ul>
-<ol start="3">
-<li><p>词法分析阶段所依循的原则</p>
-<ul>
-<li>语言的词法规则</li>
-</ul>
-</li>
-<li><p>描述词法规则的有效工具是正规式和有限自动机</p>
-</li>
+<li>基于TCP/IP的高级协议</li>
+<li>默认端口号:80</li>
+<li>基于请求/响应模型的:一次请求对应一次响应</li>
+<li>无状态的：每次请求之间相互独立，不能交互数据</li>
 </ol>
 </li>
-<li><p>语法分析</p>
+<li><p>历史版本：</p>
+<ul>
+<li>1.0：每一次请求响应都会建立新的连接</li>
+<li>1.1：复用连接</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>请求消息数据格式</p>
 <ol>
-<li>任务：在词法分析的基础上，根据语言的语法规则，把单词符号分解成各类语法单位（语法范畴），如“短语”、“句子”、“子句”、“程序段”等</li>
-</ol>
+<li><p>请求行<br> 请求方式 请求url 请求协议/版本<br> GET /login.html    HTTP/1.1</p>
 <ul>
-<li><p>例：<br>  Z:=X+0.618*Y</p>
-<p>  语法分析结果：表达式、赋值语句</p>
+<li>请求方式：<ul>
+<li>HTTP协议有7中请求方式，常用的有2种<ul>
+<li>GET：<ol>
+<li>请求参数在请求行中，在url后。</li>
+<li>请求的url长度有限制的</li>
+<li>不太安全</li>
+</ol>
+</li>
+<li>POST：<ol>
+<li>请求参数在请求体中</li>
+<li>请求的url长度没有限制的</li>
+<li>相对安全</li>
+</ol>
 </li>
 </ul>
-<ol start="2">
-<li>语法规则通常用上下文无关文法描述</li>
-</ol>
 </li>
-<li><p>语义分析与中间代码的产生</p>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>请求头：客户端浏览器告诉服务器一些信息<br> 请求头名称: 请求头值</p>
+<ul>
+<li><p>常见的请求头：</p>
 <ol>
-<li><p>对语法分析所识别出的各类语法范畴，分析其含义，并进行初步翻译（产生中间代码）</p>
+<li><p>User-Agent：浏览器告诉服务器，我访问你使用的浏览器版本信息</p>
+<ul>
+<li>可以在服务器端获取该头的信息，解决浏览器的兼容性问题</li>
+</ul>
 </li>
-<li><p>通常包括两方面的工作</p>
+<li><p>Referer：<a target="_blank" rel="noopener" href="http://localhost/login.html">http://localhost/login.html</a></p>
+<ul>
+<li>告诉服务器，我(当前请求)从哪里来？<ul>
+<li>作用：<ol>
+<li>防盗链：</li>
+<li>统计工作：</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>请求空行<br> 空行，就是用于分割POST请求的请求头，和请求体的。</p>
+</li>
+<li><p>请求体(正文)：</p>
+<ul>
+<li>封装POST请求消息的请求参数的</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>字符串格式：<br>  POST /login.html    HTTP/1.1<br>  Host: localhost<br>  User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0<br>  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,<em>/</em>;q=0.8<br>  Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2<br>  Accept-Encoding: gzip, deflate<br>  Referer: <a target="_blank" rel="noopener" href="http://localhost/login.html">http://localhost/login.html</a><br>  Connection: keep-alive<br>  Upgrade-Insecure-Requests: 1</p>
+<p>  username=zhangsan    </p>
+</li>
+<li><p>响应消息数据格式</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Request："><a href="#Request：" class="headerlink" title="Request："></a>Request：</h2><ol>
+<li><p>request对象和response对象的原理</p>
 <ol>
-<li><p>首先对各种语法范畴进行静态语义检查（如：变量是否定义，类型是否正确等）</p>
-</li>
-<li><p>如果正确则进行另一方面的工作，即进行中间代码的翻译</p>
-</li>
+<li>request和response对象是由服务器创建的。我们来使用它们</li>
+<li>request对象是来获取请求消息，response对象是来设置响应消息</li>
 </ol>
 </li>
-<li><p>中间代码</p>
+<li><p>request对象继承体系结构：<br> ServletRequest        –    接口</p>
+<pre><code> |    继承
+</code></pre>
+<p> HttpServletRequest    – 接口</p>
+<pre><code> |    实现
+</code></pre>
+<p> org.apache.catalina.connector.RequestFacade 类(tomcat)</p>
+</li>
+<li><p>request功能：</p>
 <ol>
-<li><p>一种含义明确的、便于处理的记号系统，一般独立于具体的硬件</p>
-</li>
-<li><p>这种记号系统与现代计算机的指令形式有某种程度的接近，或者能够比较容易将它变换成现代计算机的机器指令</p>
-</li>
-<li><p>主要形式</p>
-<ul>
-<li><p>四元式</p>
-<table>
-<thead>
-<tr>
-<th>算符</th>
-<th>左操作符</th>
-<th>右操作符</th>
-<th>结果</th>
-</tr>
-</thead>
-</table>
-<ul>
-<li><p>举例：Z:=(X+0.418)*Y/W</p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>算符</th>
-<th>左操作符</th>
-<th>右操作符</th>
-<th>结果</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>（1）</td>
-<td>+</td>
-<td>X</td>
-<td>0.418</td>
-<td>T1</td>
-</tr>
-<tr>
-<td>（2）</td>
-<td>*</td>
-<td>T1</td>
-<td>Y</td>
-<td>T2</td>
-</tr>
-<tr>
-<td>（3）</td>
-<td>/</td>
-<td>T2</td>
-<td>W</td>
-<td>Z</td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-</li>
-<li><p>三元式</p>
-</li>
-<li><p>间接三元式</p>
-</li>
-<li><p>逆波兰式</p>
-</li>
-</ul>
-</li>
-<li><p>通常使用属性文法描述语义规则</p>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>优化</p>
+<li><p>获取请求消息数据</p>
 <ol>
-<li><p>任务：对前阶段产生的中间代码进行加工，以期在最后阶段产生更为高效（省时间和空间）的代码</p>
-</li>
-<li><p>优化所依循的原则</p>
+<li><p>获取请求行数据</p>
 <ul>
-<li>程序的等价变换规则</li>
-</ul>
+<li><p>GET /day14/demo1?name=zhangsan HTTP/1.1</p>
 </li>
-<li><p>优化方法</p>
-<ul>
-<li><p>公共子表达式的提取</p>
-</li>
-<li><p>循环优化</p>
-</li>
-<li><p>删除无用代码</p>
-</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li><p>举例：<br>  for K:=1 to 100 do<br>  begin<br>  M:=I+10<em>K;<br>  N:=J+10</em>K<br>  end<br>  未优化的中间代码</p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>OP</th>
-<th>ARG1</th>
-<th>ARG2</th>
-<th>RESULT</th>
-<th>注解</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>（1）</td>
-<td>:=</td>
-<td>1</td>
-<td></td>
-<td>K</td>
-<td>K:=1</td>
-</tr>
-<tr>
-<td>（2）</td>
-<td>j&lt;</td>
-<td>100</td>
-<td>K</td>
-<td>（9）</td>
-<td>若100&lt;K转至第（9）个四元式</td>
-</tr>
-<tr>
-<td>（3）</td>
-<td>*</td>
-<td>10</td>
-<td>K</td>
-<td>T1</td>
-<td>T1=10*k</td>
-</tr>
-<tr>
-<td>（4）</td>
-<td>+</td>
-<td>I</td>
-<td>T1</td>
-<td>M</td>
-<td>M:=I+T1;T1为临时变量</td>
-</tr>
-<tr>
-<td>（5）</td>
-<td>*</td>
-<td>10</td>
-<td>K</td>
-<td>T2</td>
-<td>T2=10*K</td>
-</tr>
-<tr>
-<td>（6）</td>
-<td>+</td>
-<td>J</td>
-<td>T2</td>
-<td>N</td>
-<td>N:=J+T2;T2为临时变量</td>
-</tr>
-<tr>
-<td>（7）</td>
-<td>+</td>
-<td>K</td>
-<td>1</td>
-<td>K</td>
-<td>K:=K+1</td>
-</tr>
-<tr>
-<td>（8）</td>
-<td>j</td>
-<td></td>
-<td></td>
-<td>（2）</td>
-<td>转至第（2）个四元式</td>
-</tr>
-<tr>
-<td>（9）</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<p>  优化后的中间代码</p>
-<table>
-<thead>
-<tr>
-<th>序号</th>
-<th>OP</th>
-<th>ARG1</th>
-<th>ARG2</th>
-<th>RESULT</th>
-<th>注解</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>（1）</td>
-<td>:=</td>
-<td>I</td>
-<td></td>
-<td>M</td>
-<td>M:=I</td>
-</tr>
-<tr>
-<td>（2）</td>
-<td>:=</td>
-<td>J</td>
-<td></td>
-<td>N</td>
-<td>N:=J</td>
-</tr>
-<tr>
-<td>（3）</td>
-<td>:=</td>
-<td>1</td>
-<td></td>
-<td>K</td>
-<td>K:=1</td>
-</tr>
-<tr>
-<td>（4）</td>
-<td>j&lt;</td>
-<td>100</td>
-<td>K</td>
-<td>（9）</td>
-<td>若100&lt;K转至第（9）个四元式</td>
-</tr>
-<tr>
-<td>（5）</td>
-<td>+</td>
-<td>M</td>
-<td>10</td>
-<td>M</td>
-<td>M:=M+10</td>
-</tr>
-<tr>
-<td>（6）</td>
-<td>+</td>
-<td>N</td>
-<td>10</td>
-<td>N</td>
-<td>N:=N+10</td>
-</tr>
-<tr>
-<td>（7）</td>
-<td>+</td>
-<td>K</td>
-<td>1</td>
-<td>K</td>
-<td>K:=K+1</td>
-</tr>
-<tr>
-<td>（8）</td>
-<td>j</td>
-<td></td>
-<td></td>
-<td>（4）</td>
-<td>goto（4）</td>
-</tr>
-<tr>
-<td>（9）</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-</li>
-</ul>
-</li>
-<li><p>目标代码生成</p>
+<li><p>方法：</p>
 <ol>
-<li><p>任务：把中间代码变换成特定目标机器上的低级语言代码</p>
-</li>
-<li><p>依赖于硬件系统结构和机器指令含义</p>
-</li>
-<li><p>目标代码的形式</p>
+<li><p>获取请求方式 ：GET</p>
 <ul>
-<li><p>绝对指令代码</p>
+<li>String getMethod()  </li>
+</ul>
 </li>
-<li><p>可重定向的指令代码</p>
+<li><p>(*)获取虚拟目录：/day14</p>
+<ul>
+<li>String getContextPath()</li>
+</ul>
 </li>
-<li><p>汇编指令代码</p>
+<li><p>获取Servlet路径: /demo1</p>
+<ul>
+<li>String getServletPath()</li>
+</ul>
 </li>
+<li><p>获取get方式请求参数：name=zhangsan</p>
+<ul>
+<li>String getQueryString()</li>
+</ul>
+</li>
+<li><p>(*)获取请求URI：/day14/demo1</p>
+<ul>
+<li><p>String getRequestURI():        /day14/demo1</p>
+</li>
+<li><p>StringBuffer getRequestURL()  :<a target="_blank" rel="noopener" href="http://localhost/day14/demo1">http://localhost/day14/demo1</a></p>
+</li>
+<li><p>URL:统一资源定位符 ： <a target="_blank" rel="noopener" href="http://localhost/day14/demo1">http://localhost/day14/demo1</a>    中华人民共和国</p>
+</li>
+<li><p>URI：统一资源标识符 : /day14/demo1                    共和国</p>
+</li>
+</ul>
+</li>
+<li><p>获取协议及版本：HTTP/1.1</p>
+<ul>
+<li>String getProtocol()</li>
+</ul>
+</li>
+<li><p>获取客户机的IP地址：</p>
+<ul>
+<li>String getRemoteAddr()</li>
 </ul>
 </li>
 </ol>
 </li>
-</ol>
-<h3 id="1-3-编译程序的结构"><a href="#1-3-编译程序的结构" class="headerlink" title="1.3 编译程序的结构"></a>1.3 编译程序的结构</h3><ol>
-<li><p>表格与表格管理</p>
+</ul>
+</li>
+<li><p>获取请求头数据</p>
+<ul>
+<li>方法：<ul>
+<li>(*)String getHeader(String name):通过请求头的名称获取请求头的值</li>
+<li>Enumeration<String> getHeaderNames():获取所有的请求头名称</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>获取请求体数据:</p>
+<ul>
+<li><p>请求体：只有POST请求方式，才有请求体，在请求体中封装了POST请求的请求参数</p>
+</li>
+<li><p>步骤：</p>
 <ol>
-<li><p>编译程序使用的表格中最重要的是富豪榜</p>
-</li>
-<li><p>它用来登记源程序中出现的每一个名字以及名字的各种属性。如一个名字是常量名、变量名，还是过程名等；如果是变量名，它的类型又是什么、所占内存是多大、地址是什么等</p>
-</li>
-</ol>
+<li><p>获取流对象</p>
 <ul>
-<li><p>举例：</p>
-</li>
-<li><p>int a,b;</p>
-<table>
-<thead>
-<tr>
-<th>名字</th>
-<th>记号</th>
-<th>类型</th>
-<th>……</th>
-<th>addr</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>a</td>
-<td>id1(25)</td>
-<td>int</td>
-<td></td>
-<td>0</td>
-</tr>
-<tr>
-<td>b</td>
-<td>id2(25)</td>
-<td>int</td>
-<td></td>
-<td>4</td>
-</tr>
-</tbody></table>
+<li> BufferedReader getReader()：获取字符输入流，只能操作字符数据</li>
+<li>ServletInputStream getInputStream()：获取字节输入流，可以操作所有类型数据<ul>
+<li>在文件上传知识点后讲解</li>
+</ul>
 </li>
 </ul>
-<ol start="3">
-<li><p>符号表上的操作</p>
-<ul>
-<li><p>查找</p>
 </li>
-<li><p>插入</p>
+<li><p>再从流对象中拿数据</p>
+</li>
+</ol>
 </li>
 </ul>
 </li>
 </ol>
 </li>
-<li><p>出错处理</p>
-<ul>
-<li><p>错误类型</p>
-</li>
-<li><p>发现错误</p>
-</li>
-<li><p>定位错误</p>
-</li>
-<li><p>自动校正错误</p>
-</li>
-</ul>
-</li>
-<li><p>遍</p>
+<li><p>其他功能：</p>
 <ol>
-<li><p>对源程序或者源程序的中间结果从头到尾扫描一次，并作有关的加工处理，生成新的中间结果或目标程序</p>
-</li>
-<li><p>几个不同阶段可以合为一遍，也可以将一个阶段的工作分为若干遍</p>
-</li>
-<li><p>一个编译程序究竟应分为几遍，如何划分，是与源语言、设计要求、硬件设备等因素相关的</p>
-</li>
-</ol>
-</li>
-<li><p>编译前端和后端</p>
+<li><p>获取请求参数通用方式：不论get还是post请求方式都可以使用下列方法来获取请求参数</p>
 <ol>
-<li><p>前端主要由与源语言有关但与目标机无关的那些部分组成。通常包括词法分析、语法分析、语义分析与中间代码产生，有的代码优化工作也可以包括在前端</p>
-</li>
-<li><p>后端包括编译程序中与目标机有关的部分，如与目标机有关的优化，和目标代码的生成等</p>
-</li>
+<li>String getParameter(String name):根据参数名称获取参数值    username=zs&amp;password=123</li>
+<li>String[] getParameterValues(String name):根据参数名称获取参数值的数组  hobby=xx&amp;hobby=game</li>
+<li>Enumeration<String> getParameterNames():获取所有请求的参数名称</li>
+<li>Map&lt;String,String[]&gt; getParameterMap():获取所有参数的map集合</li>
 </ol>
-</li>
-</ol>
-<h3 id="1-4-编译程序与程序设计环境"><a href="#1-4-编译程序与程序设计环境" class="headerlink" title="1.4 编译程序与程序设计环境"></a>1.4 编译程序与程序设计环境</h3><ol>
-<li><p>编译程序是实现高级语言的有关最重要的工具</p>
-</li>
-<li><p>但支持程序设计人员进行程序设计开发通常还需要其他一些工具：如编辑程序、连接程序、调试程序等</p>
-</li>
-<li><p>编译程序与这些程序设计工具一起构成所谓的程序设计环境</p>
-</li>
-<li><p>常见的集成化程序设计环境</p>
 <ul>
-<li><p>APSE</p>
-</li>
-<li><p>Turbo Pascal</p>
-</li>
-<li><p>Turbo C</p>
-</li>
-<li><p>Visual C++</p>
+<li>中文乱码问题：<ul>
+<li>get方式：tomcat 8 已经将get方式乱码问题解决了</li>
+<li>post方式：会乱码</li>
+<li>解决：在获取参数前，设置request的编码request.setCharacterEncoding(“utf-8”);</li>
+</ul>
 </li>
 </ul>
 </li>
+<li><p>请求转发：一种在服务器内部的资源跳转方式</p>
+<ol>
+<li><p>步骤：</p>
+<ol>
+<li>通过request对象获取请求转发器对象：RequestDispatcher getRequestDispatcher(String path)</li>
+<li>使用RequestDispatcher对象来进行转发：forward(ServletRequest request, ServletResponse response) </li>
 </ol>
-<h3 id="1-5-编译程序的生成"><a href="#1-5-编译程序的生成" class="headerlink" title="1.5 编译程序的生成"></a>1.5 编译程序的生成</h3><ol>
-<li><p>编写部分编译程序或整个编译程序的工具</p>
-<ul>
-<li><p>自动产生词法分析器LEX</p>
 </li>
-<li><p>自动产生语法分析器YACC</p>
+<li><p>特点：</p>
+<ol>
+<li>浏览器地址栏路径不发生变化</li>
+<li>只能转发到当前服务器内部资源中。</li>
+<li>转发是一次请求</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>共享数据：</p>
+<ul>
+<li>域对象：一个有作用范围的对象，可以在范围内共享数据</li>
+<li>request域：代表一次请求的范围，一般用于请求转发的多个资源中共享数据</li>
+<li>方法：<ol>
+<li>void setAttribute(String name,Object obj):存储数据</li>
+<li>Object getAttitude(String name):通过键获取值</li>
+<li>void removeAttribute(String name):通过键移除键值对</li>
+</ol>
 </li>
 </ul>
 </li>
-<li><p>如何为某目标机上的某种语言构造一个编译程序</p>
+<li><p>获取ServletContext：</p>
+<ul>
+<li>ServletContext getServletContext()</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="案例：用户登录"><a href="#案例：用户登录" class="headerlink" title="案例：用户登录"></a>案例：用户登录</h2><ul>
+<li><p>用户登录案例需求：<br>  1.编写login.html登录页面</p>
+<pre><code>  username &amp; password 两个输入框
+</code></pre>
+<p>  2.使用Druid数据库连接池技术,操作mysql，day14数据库中user表<br>  3.使用JdbcTemplate技术封装JDBC<br>  4.登录成功跳转到SuccessServlet展示：登录成功！用户名,欢迎您<br>  5.登录失败跳转到FailServlet展示：登录失败，用户名或密码错误</p>
+</li>
+<li><p>分析</p>
+</li>
+<li><p>开发步骤</p>
 <ol>
-<li><p>深刻理解源语言的结构与含义</p>
+<li><p>创建项目，导入html页面，配置文件，jar包</p>
 </li>
-<li><p>如何目标语言是机器语言，则需要搞清楚目标机的硬件系统结构和操作系统功能</p>
+<li><p>创建数据库环境<br> CREATE DATABASE day14;<br> USE day14;<br> CREATE TABLE USER(</p>
+<pre><code> id INT PRIMARY KEY AUTO_INCREMENT,
+ username VARCHAR(32) UNIQUE NOT NULL,
+ PASSWORD VARCHAR(32) NOT NULL
+</code></pre>
+<p> );</p>
 </li>
-<li><p>编译方法</p>
+<li><p>创建包cn.itcast.domain,创建类User<br> package cn.itcast.domain;<br> /**</p>
+<ul>
+<li>用户的实体类</li>
+<li>/<br>public class User {  private int id;<br>  private String username;<br>  private String password;</li>
+</ul>
 </li>
 </ol>
 </li>
-</ol>
+</ul>
+<pre><code>            public int getId() &#123;
+                return id;
+            &#125;
+</code></pre>
+<p>​<br>​                public void setId(int id) {<br>​                    this.id = id;<br>​                }<br>​<br>​                public String getUsername() {<br>​                    return username;<br>​                }<br>​<br>​                public void setUsername(String username) {<br>​                    this.username = username;<br>​                }<br>​<br>                public String getPassword() {<br>                    return password;<br>                }</p>
+<pre><code>            public void setPassword(String password) &#123;
+                this.password = password;
+            &#125;
+        
+            @Override
+            public String toString() &#123;
+                return &quot;User&#123;&quot; +
+                        &quot;id=&quot; + id +
+                        &quot;, username=&#39;&quot; + username + &#39;\&#39;&#39; +
+                        &quot;, password=&#39;&quot; + password + &#39;\&#39;&#39; +
+                        &#39;&#125;&#39;;
+            &#125;
+        &#125;
+    4. 创建包cn.itcast.util,编写工具类JDBCUtils
+        package cn.itcast.util;
+
+        import com.alibaba.druid.pool.DruidDataSourceFactory;
+        
+        import javax.sql.DataSource;
+        import javax.xml.crypto.Data;
+        import java.io.IOException;
+        import java.io.InputStream;
+        import java.sql.Connection;
+        import java.sql.SQLException;
+        import java.util.Properties;
+        
+        /**
+         * JDBC工具类 使用Durid连接池
+         */
+        public class JDBCUtils &#123;
+        
+            private static DataSource ds ;
+        
+            static &#123;
+        
+                try &#123;
+                    //1.加载配置文件
+                    Properties pro = new Properties();
+                    //使用ClassLoader加载配置文件，获取字节输入流
+                    InputStream is = JDBCUtils.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;);
+                    pro.load(is);
+        
+                    //2.初始化连接池对象
+                    ds = DruidDataSourceFactory.createDataSource(pro);
+        
+                &#125; catch (IOException e) &#123;
+                    e.printStackTrace();
+                &#125; catch (Exception e) &#123;
+                    e.printStackTrace();
+                &#125;
+            &#125;
+        
+            /**
+             * 获取连接池对象
+             */
+            public static DataSource getDataSource()&#123;
+                return ds;
+            &#125;
+</code></pre>
+<p>​<br>​                /**<br>​                 * 获取连接Connection对象<br>​                 <em>/<br>​                public static Connection getConnection() throws SQLException {<br>​                    return  ds.getConnection();<br>​                }<br>​            }<br>​        5. 创建包cn.itcast.dao,创建类UserDao,提供login方法<br>​<br>​            package cn.itcast.dao;<br>​<br>​            import cn.itcast.domain.User;<br>​            import cn.itcast.util.JDBCUtils;<br>​            import org.springframework.dao.DataAccessException;<br>​            import org.springframework.jdbc.core.BeanPropertyRowMapper;<br>​            import org.springframework.jdbc.core.JdbcTemplate;<br>​<br>​            /</em>*<br>​             * 操作数据库中User表的类<br>​             */<br>​            public class UserDao {<br>​<br>                //声明JDBCTemplate对象共用<br>                private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());</p>
+<pre><code>            /**
+             * 登录方法
+             * @param loginUser 只有用户名和密码
+             * @return user包含用户全部数据,没有查询到，返回null
+             */
+            public User login(User loginUser)&#123;
+                try &#123;
+                    //1.编写sql
+                    String sql = &quot;select * from user where username = ? and password = ?&quot;;
+                    //2.调用query方法
+                    User user = template.queryForObject(sql,
+                            new BeanPropertyRowMapper&lt;User&gt;(User.class),
+                            loginUser.getUsername(), loginUser.getPassword());
+</code></pre>
+<p>​<br>​                        return user;<br>​                    } catch (DataAccessException e) {<br>​                        e.printStackTrace();//记录日志<br>​                        return null;<br>​                    }<br>​                }<br>​            }<br>​<br>​        6. 编写cn.itcast.web.servlet.LoginServlet类<br>​            package cn.itcast.web.servlet;<br>​<br>​            import cn.itcast.dao.UserDao;<br>​            import cn.itcast.domain.User;<br>​<br>​            import javax.servlet.ServletException;<br>​            import javax.servlet.annotation.WebServlet;<br>​            import javax.servlet.http.HttpServlet;<br>​            import javax.servlet.http.HttpServletRequest;<br>​            import javax.servlet.http.HttpServletResponse;<br>​            import java.io.IOException;</p>
+<p>​<br>​            @WebServlet(“/loginServlet”)<br>​            public class LoginServlet extends HttpServlet {</p>
+<p>​<br>​                @Override<br>​                protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {<br>​                    //1.设置编码<br>​                    req.setCharacterEncoding(“utf-8”);<br>​                    //2.获取请求参数<br>​                    String username = req.getParameter(“username”);<br>​                    String password = req.getParameter(“password”);<br>​                    //3.封装user对象<br>​                    User loginUser = new User();<br>​                    loginUser.setUsername(username);<br>​                    loginUser.setPassword(password);<br>​<br>​                    //4.调用UserDao的login方法<br>​                    UserDao dao = new UserDao();<br>​                    User user = dao.login(loginUser);<br>​<br>​                    //5.判断user<br>​                    if(user == null){<br>​                        //登录失败<br>​                        req.getRequestDispatcher(“/failServlet”).forward(req,resp);<br>​                    }else{<br>​                        //登录成功<br>​                        //存储数据<br>​                        req.setAttribute(“user”,user);<br>​                        //转发<br>​                        req.getRequestDispatcher(“/successServlet”).forward(req,resp);<br>​                    }<br>​<br>​                }<br>​<br>                @Override<br>                protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {<br>                    this.doGet(req,resp);<br>                }<br>            }</p>
+<pre><code>    7. 编写FailServlet和SuccessServlet类
+        @WebServlet(&quot;/successServlet&quot;)
+        public class SuccessServlet extends HttpServlet &#123;
+            protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;
+                //获取request域中共享的user对象
+                User user = (User) request.getAttribute(&quot;user&quot;);
+        
+                if(user != null)&#123;
+                    //给页面写一句话
+        
+                    //设置编码
+                    response.setContentType(&quot;text/html;charset=utf-8&quot;);
+                    //输出
+                    response.getWriter().write(&quot;登录成功！&quot;+user.getUsername()+&quot;,欢迎您&quot;);
+                &#125;
+</code></pre>
+<p>​<br>​                }        </p>
+<pre><code>        @WebServlet(&quot;/failServlet&quot;)
+        public class FailServlet extends HttpServlet &#123;
+            protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;
+                //给页面写一句话
+        
+                //设置编码
+                response.setContentType(&quot;text/html;charset=utf-8&quot;);
+                //输出
+                response.getWriter().write(&quot;登录失败，用户名或密码错误&quot;);
+        
+            &#125;
+        
+            protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;
+                this.doPost(request,response);
+            &#125;
+        &#125;
+
+
+
+    8. login.html中form表单的action路径的写法
+        * 虚拟目录+Servlet的资源路径
+
+    9. BeanUtils工具类，简化数据封装
+        * 用于封装JavaBean的
+        1. JavaBean：标准的Java类
+            1. 要求：
+                1. 类必须被public修饰
+                2. 必须提供空参的构造器
+                3. 成员变量必须使用private修饰
+                4. 提供公共setter和getter方法
+            2. 功能：封装数据
+
+
+        2. 概念：
+            成员变量：
+            属性：setter和getter方法截取后的产物
+                例如：getUsername() --&gt; Username--&gt; username
+
+
+        3. 方法：
+            1. setProperty()
+            2. getProperty()
+            3. populate(Object obj , Map map):将map集合的键值对信息，封装到对应的JavaBean对象中
+</code></pre>
 
                 
             </div>
@@ -992,7 +1003,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://try-18.github.io/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%AC%E4%B8%80%E7%AB%A0/">http://try-18.github.io/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%AC%E4%B8%80%E7%AB%A0/</a>
+                    <a href="http://try-18.github.io/Servlet&HTTP&Request%E7%AC%94%E8%AE%B0/">http://try-18.github.io/Servlet&HTTP&Request%E7%AC%94%E8%AE%B0/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1030,8 +1041,28 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">
-                                    <span class="chip bg-color">编译原理</span>
+                                <a href="/tags/JavaWeb/">
+                                    <span class="chip bg-color">JavaWeb</span>
+                                </a>
+                            
+                                <a href="/tags/Web/">
+                                    <span class="chip bg-color">Web</span>
+                                </a>
+                            
+                                <a href="/tags/bilibili/">
+                                    <span class="chip bg-color">bilibili</span>
+                                </a>
+                            
+                                <a href="/tags/Servlet/">
+                                    <span class="chip bg-color">Servlet</span>
+                                </a>
+                            
+                                <a href="/tags/HTTP/">
+                                    <span class="chip bg-color">HTTP</span>
+                                </a>
+                            
+                                <a href="/tags/Request/">
+                                    <span class="chip bg-color">Request</span>
                                 </a>
                             
                         </div>
@@ -1207,19 +1238,19 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;Previous</div>
             <div class="card">
-                <a href="/Servlet&HTTP&Request%E7%AC%94%E8%AE%B0/">
+                <a href="/Tomcat&Servlet%E7%AC%94%E8%AE%B0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="Servlet&amp;HTTP&amp;Request">
+                        <img src="/medias/featureimages/19.jpg" class="responsive-img" alt="Tomcat&amp;Servlet">
                         
-                        <span class="card-title">Servlet&amp;HTTP&amp;Request</span>
+                        <span class="card-title">Tomcat&amp;Servlet</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Servlet&HTTP&Request笔记
+                            Tomcat&Servlet笔记
                         
                     </div>
                     <div class="publish-info">
@@ -1257,12 +1288,8 @@
                         <span class="chip bg-color">Servlet</span>
                     </a>
                     
-                    <a href="/tags/HTTP/">
-                        <span class="chip bg-color">HTTP</span>
-                    </a>
-                    
-                    <a href="/tags/Request/">
-                        <span class="chip bg-color">Request</span>
+                    <a href="/tags/Tomcat/">
+                        <span class="chip bg-color">Tomcat</span>
                     </a>
                     
                 </div>
@@ -1276,24 +1303,24 @@
                 Next&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/My-new-Post/">
+                <a href="/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%AC%E4%B8%80%E7%AB%A0/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="第一个博客">
+                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="编译原理第一章">
                         
-                        <span class="card-title">第一个博客</span>
+                        <span class="card-title">编译原理第一章</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Web程序设计实验
+                            编译原理第一章总结
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-16
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-11-18
                             </span>
                         <span class="publish-author">
                             
@@ -1310,12 +1337,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/JavaWeb/">
-                        <span class="chip bg-color">JavaWeb</span>
-                    </a>
-                    
-                    <a href="/tags/Web/">
-                        <span class="chip bg-color">Web</span>
+                    <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/">
+                        <span class="chip bg-color">编译原理</span>
                     </a>
                     
                 </div>
