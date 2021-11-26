@@ -491,6 +491,7 @@
             <div id="articleContent">
                 <h3 id="1-mysql数据库连接错误"><a href="#1-mysql数据库连接错误" class="headerlink" title="1. mysql数据库连接错误"></a>1. mysql数据库连接错误</h3><p>明明代码跟黑马程序员的代码一模一样，然后却不能运行，报错。经过网上查资料才知道，问题之一可能是数据库mysql的connector连接驱动兼容问题。因为我电脑上的mysql是装了最新版本的，但是我代码中使用connector连接驱动是跟视频里面一样版本的，不是最新版本，所以就有兼容问题。之后换上最新版本的mysql连接驱动之后，就可以了。</p>
 <h3 id="2-AnnotationConfigApplicationContext-运行错误"><a href="#2-AnnotationConfigApplicationContext-运行错误" class="headerlink" title="2. AnnotationConfigApplicationContext()运行错误"></a>2. AnnotationConfigApplicationContext()运行错误</h3><p>代码一模一样，却出现问题，网上找了很多方法，看到有人换了jdk版本就可以了。于是又下了个jdk1.8，然而运行时却出现无效的16情况，又百度几分钟，按百度上的更改project structure上jdk就可以，然而不行。又看到了一个博客，还需要更改setting里面的Java Compiler的Target byttecode version为8才可以。操作之后，发现没有报错， AnnotationConfigApplicationContext()也可以运行。我一直觉得最新的就是最好的，现在经历的问题都是版本兼容的问题，看来在学习时，不应该只下最新版本的，应该看哪个版本更稳定，哪个版本使用人更多，尤其是视频里面的是哪个版本。</p>
+<h3 id="3-Spring连接web出错"><a href="#3-Spring连接web出错" class="headerlink" title="3. Spring连接web出错"></a>3. Spring连接web出错</h3><p>在用Spring连接上web时，出错，只能显示index.jsp里面的内容，在webapp文件下发现打包的war包有问题，但不知道为什么会这样，后来重复反复的删掉重来，反复测试，终于神奇的好了，离谱。</p>
 
                 
             </div>
