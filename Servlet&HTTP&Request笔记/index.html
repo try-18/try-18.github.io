@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Servlet&amp;HTTP&amp;Request | Striver的个人博客空间</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="今日内容： Servlet HTTP协议 Request  Servlet： 概念  步骤  执行原理  生命周期  Servlet3.0 注解配置  Servlet的体系结构 Servlet – 接口  |   GenericServlet – 抽象类  |   HttpServlet  – 抽象类  GenericServlet：将Servlet接口中其他的方法做了默认空实现，只将servic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet&amp;HTTP&amp;Request">
+<meta property="og:url" content="http://try-18.github.io/Servlet&HTTP&Request%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Striver的个人博客空间">
+<meta property="og:description" content="今日内容： Servlet HTTP协议 Request  Servlet： 概念  步骤  执行原理  生命周期  Servlet3.0 注解配置  Servlet的体系结构 Servlet – 接口  |   GenericServlet – 抽象类  |   HttpServlet  – 抽象类  GenericServlet：将Servlet接口中其他的方法做了默认空实现，只将servic">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-11-21T02:33:02.000Z">
+<meta property="article:modified_time" content="2021-11-21T04:28:44.256Z">
+<meta property="article:author" content="Striver">
+<meta property="article:tag" content="JavaWeb">
+<meta property="article:tag" content="Web">
+<meta property="article:tag" content="bilibili">
+<meta property="article:tag" content="Servlet">
+<meta property="article:tag" content="HTTP">
+<meta property="article:tag" content="Request">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Striver的个人博客空间" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Striver的个人博客空间</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Striver</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://try-18.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-Servlet&amp;HTTP&amp;Request笔记" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/Servlet&HTTP&Request%E7%AC%94%E8%AE%B0/" class="article-date">
+  <time class="dt-published" datetime="2021-11-21T02:33:02.000Z" itemprop="datePublished">2021-11-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/2021-11/">2021.11</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Servlet&amp;HTTP&amp;Request
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="今日内容："><a href="#今日内容：" class="headerlink" title="今日内容："></a>今日内容：</h1><ol>
+<li>Servlet</li>
+<li>HTTP协议</li>
+<li>Request</li>
+</ol>
+<h2 id="Servlet："><a href="#Servlet：" class="headerlink" title="Servlet："></a>Servlet：</h2><ol>
+<li><p>概念</p>
+</li>
+<li><p>步骤</p>
+</li>
+<li><p>执行原理</p>
+</li>
+<li><p>生命周期</p>
+</li>
+<li><p>Servlet3.0 注解配置</p>
+</li>
+<li><p>Servlet的体系结构<br> Servlet – 接口</p>
+<pre><code> |
+</code></pre>
+<p> GenericServlet – 抽象类</p>
+<pre><code> |
+</code></pre>
+<p> HttpServlet  – 抽象类</p>
+<ul>
+<li>GenericServlet：将Servlet接口中其他的方法做了默认空实现，只将service()方法作为抽象<ul>
+<li>将来定义Servlet类时，可以继承GenericServlet，实现service()方法即可</li>
+</ul>
+</li>
+<li>HttpServlet：对http协议的一种封装，简化操作<ol>
+<li>定义类继承HttpServlet</li>
+<li>复写doGet/doPost方法</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>Servlet相关配置</p>
+<ol>
+<li>urlpartten:Servlet访问路径<ol>
+<li>一个Servlet可以定义多个访问路径 ： @WebServlet({“/d4”,”/dd4”,”/ddd4”})</li>
+<li>路径定义规则：<ol>
+<li>/xxx：路径匹配</li>
+<li>/xxx/xxx:多层路径，目录结构</li>
+<li>*.do：扩展名匹配</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="HTTP："><a href="#HTTP：" class="headerlink" title="HTTP："></a>HTTP：</h2><ul>
+<li><p>概念：Hyper Text Transfer Protocol 超文本传输协议</p>
+<ul>
+<li><p>传输协议：定义了，客户端和服务器端通信时，发送数据的格式</p>
+</li>
+<li><p>特点：</p>
+<ol>
+<li>基于TCP/IP的高级协议</li>
+<li>默认端口号:80</li>
+<li>基于请求/响应模型的:一次请求对应一次响应</li>
+<li>无状态的：每次请求之间相互独立，不能交互数据</li>
+</ol>
+</li>
+<li><p>历史版本：</p>
+<ul>
+<li>1.0：每一次请求响应都会建立新的连接</li>
+<li>1.1：复用连接</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>请求消息数据格式</p>
+<ol>
+<li><p>请求行<br> 请求方式 请求url 请求协议/版本<br> GET /login.html    HTTP/1.1</p>
+<ul>
+<li>请求方式：<ul>
+<li>HTTP协议有7中请求方式，常用的有2种<ul>
+<li>GET：<ol>
+<li>请求参数在请求行中，在url后。</li>
+<li>请求的url长度有限制的</li>
+<li>不太安全</li>
+</ol>
+</li>
+<li>POST：<ol>
+<li>请求参数在请求体中</li>
+<li>请求的url长度没有限制的</li>
+<li>相对安全</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>请求头：客户端浏览器告诉服务器一些信息<br> 请求头名称: 请求头值</p>
+<ul>
+<li><p>常见的请求头：</p>
+<ol>
+<li><p>User-Agent：浏览器告诉服务器，我访问你使用的浏览器版本信息</p>
+<ul>
+<li>可以在服务器端获取该头的信息，解决浏览器的兼容性问题</li>
+</ul>
+</li>
+<li><p>Referer：<a target="_blank" rel="noopener" href="http://localhost/login.html">http://localhost/login.html</a></p>
+<ul>
+<li>告诉服务器，我(当前请求)从哪里来？<ul>
+<li>作用：<ol>
+<li>防盗链：</li>
+<li>统计工作：</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>请求空行<br> 空行，就是用于分割POST请求的请求头，和请求体的。</p>
+</li>
+<li><p>请求体(正文)：</p>
+<ul>
+<li>封装POST请求消息的请求参数的</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><p>字符串格式：<br>  POST /login.html    HTTP/1.1<br>  Host: localhost<br>  User-Agent: Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:60.0) Gecko/20100101 Firefox/60.0<br>  Accept: text/html,application/xhtml+xml,application/xml;q=0.9,<em>/</em>;q=0.8<br>  Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2<br>  Accept-Encoding: gzip, deflate<br>  Referer: <a target="_blank" rel="noopener" href="http://localhost/login.html">http://localhost/login.html</a><br>  Connection: keep-alive<br>  Upgrade-Insecure-Requests: 1</p>
+<p>  username=zhangsan    </p>
+</li>
+<li><p>响应消息数据格式</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Request："><a href="#Request：" class="headerlink" title="Request："></a>Request：</h2><ol>
+<li><p>request对象和response对象的原理</p>
+<ol>
+<li>request和response对象是由服务器创建的。我们来使用它们</li>
+<li>request对象是来获取请求消息，response对象是来设置响应消息</li>
+</ol>
+</li>
+<li><p>request对象继承体系结构：<br> ServletRequest        –    接口</p>
+<pre><code> |    继承
+</code></pre>
+<p> HttpServletRequest    – 接口</p>
+<pre><code> |    实现
+</code></pre>
+<p> org.apache.catalina.connector.RequestFacade 类(tomcat)</p>
+</li>
+<li><p>request功能：</p>
+<ol>
+<li><p>获取请求消息数据</p>
+<ol>
+<li><p>获取请求行数据</p>
+<ul>
+<li><p>GET /day14/demo1?name=zhangsan HTTP/1.1</p>
+</li>
+<li><p>方法：</p>
+<ol>
+<li><p>获取请求方式 ：GET</p>
+<ul>
+<li>String getMethod()  </li>
+</ul>
+</li>
+<li><p>(*)获取虚拟目录：/day14</p>
+<ul>
+<li>String getContextPath()</li>
+</ul>
+</li>
+<li><p>获取Servlet路径: /demo1</p>
+<ul>
+<li>String getServletPath()</li>
+</ul>
+</li>
+<li><p>获取get方式请求参数：name=zhangsan</p>
+<ul>
+<li>String getQueryString()</li>
+</ul>
+</li>
+<li><p>(*)获取请求URI：/day14/demo1</p>
+<ul>
+<li><p>String getRequestURI():        /day14/demo1</p>
+</li>
+<li><p>StringBuffer getRequestURL()  :<a target="_blank" rel="noopener" href="http://localhost/day14/demo1">http://localhost/day14/demo1</a></p>
+</li>
+<li><p>URL:统一资源定位符 ： <a target="_blank" rel="noopener" href="http://localhost/day14/demo1">http://localhost/day14/demo1</a>    中华人民共和国</p>
+</li>
+<li><p>URI：统一资源标识符 : /day14/demo1                    共和国</p>
+</li>
+</ul>
+</li>
+<li><p>获取协议及版本：HTTP/1.1</p>
+<ul>
+<li>String getProtocol()</li>
+</ul>
+</li>
+<li><p>获取客户机的IP地址：</p>
+<ul>
+<li>String getRemoteAddr()</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>获取请求头数据</p>
+<ul>
+<li>方法：<ul>
+<li>(*)String getHeader(String name):通过请求头的名称获取请求头的值</li>
+<li>Enumeration<String> getHeaderNames():获取所有的请求头名称</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>获取请求体数据:</p>
+<ul>
+<li><p>请求体：只有POST请求方式，才有请求体，在请求体中封装了POST请求的请求参数</p>
+</li>
+<li><p>步骤：</p>
+<ol>
+<li><p>获取流对象</p>
+<ul>
+<li> BufferedReader getReader()：获取字符输入流，只能操作字符数据</li>
+<li>ServletInputStream getInputStream()：获取字节输入流，可以操作所有类型数据<ul>
+<li>在文件上传知识点后讲解</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>再从流对象中拿数据</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><p>其他功能：</p>
+<ol>
+<li><p>获取请求参数通用方式：不论get还是post请求方式都可以使用下列方法来获取请求参数</p>
+<ol>
+<li>String getParameter(String name):根据参数名称获取参数值    username=zs&amp;password=123</li>
+<li>String[] getParameterValues(String name):根据参数名称获取参数值的数组  hobby=xx&amp;hobby=game</li>
+<li>Enumeration<String> getParameterNames():获取所有请求的参数名称</li>
+<li>Map&lt;String,String[]&gt; getParameterMap():获取所有参数的map集合</li>
+</ol>
+<ul>
+<li>中文乱码问题：<ul>
+<li>get方式：tomcat 8 已经将get方式乱码问题解决了</li>
+<li>post方式：会乱码</li>
+<li>解决：在获取参数前，设置request的编码request.setCharacterEncoding(“utf-8”);</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>请求转发：一种在服务器内部的资源跳转方式</p>
+<ol>
+<li><p>步骤：</p>
+<ol>
+<li>通过request对象获取请求转发器对象：RequestDispatcher getRequestDispatcher(String path)</li>
+<li>使用RequestDispatcher对象来进行转发：forward(ServletRequest request, ServletResponse response) </li>
+</ol>
+</li>
+<li><p>特点：</p>
+<ol>
+<li>浏览器地址栏路径不发生变化</li>
+<li>只能转发到当前服务器内部资源中。</li>
+<li>转发是一次请求</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>共享数据：</p>
+<ul>
+<li>域对象：一个有作用范围的对象，可以在范围内共享数据</li>
+<li>request域：代表一次请求的范围，一般用于请求转发的多个资源中共享数据</li>
+<li>方法：<ol>
+<li>void setAttribute(String name,Object obj):存储数据</li>
+<li>Object getAttitude(String name):通过键获取值</li>
+<li>void removeAttribute(String name):通过键移除键值对</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>获取ServletContext：</p>
+<ul>
+<li>ServletContext getServletContext()</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="案例：用户登录"><a href="#案例：用户登录" class="headerlink" title="案例：用户登录"></a>案例：用户登录</h2><ul>
+<li><p>用户登录案例需求：<br>  1.编写login.html登录页面</p>
+<pre><code>  username &amp; password 两个输入框
+</code></pre>
+<p>  2.使用Druid数据库连接池技术,操作mysql，day14数据库中user表<br>  3.使用JdbcTemplate技术封装JDBC<br>  4.登录成功跳转到SuccessServlet展示：登录成功！用户名,欢迎您<br>  5.登录失败跳转到FailServlet展示：登录失败，用户名或密码错误</p>
+</li>
+<li><p>分析</p>
+</li>
+<li><p>开发步骤</p>
+<ol>
+<li><p>创建项目，导入html页面，配置文件，jar包</p>
+</li>
+<li><p>创建数据库环境<br> CREATE DATABASE day14;<br> USE day14;<br> CREATE TABLE USER(</p>
+<pre><code> id INT PRIMARY KEY AUTO_INCREMENT,
+ username VARCHAR(32) UNIQUE NOT NULL,
+ PASSWORD VARCHAR(32) NOT NULL
+</code></pre>
+<p> );</p>
+</li>
+<li><p>创建包cn.itcast.domain,创建类User<br> package cn.itcast.domain;<br> /**</p>
+<ul>
+<li>用户的实体类</li>
+<li>/<br>public class User {  private int id;<br>  private String username;<br>  private String password;</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<pre><code>            public int getId() &#123;
+                return id;
+            &#125;
+</code></pre>
+<p>​<br>​                public void setId(int id) {<br>​                    this.id = id;<br>​                }<br>​<br>​                public String getUsername() {<br>​                    return username;<br>​                }<br>​<br>​                public void setUsername(String username) {<br>​                    this.username = username;<br>​                }<br>​<br>                public String getPassword() {<br>                    return password;<br>                }</p>
+<pre><code>            public void setPassword(String password) &#123;
+                this.password = password;
+            &#125;
+        
+            @Override
+            public String toString() &#123;
+                return &quot;User&#123;&quot; +
+                        &quot;id=&quot; + id +
+                        &quot;, username=&#39;&quot; + username + &#39;\&#39;&#39; +
+                        &quot;, password=&#39;&quot; + password + &#39;\&#39;&#39; +
+                        &#39;&#125;&#39;;
+            &#125;
+        &#125;
+    4. 创建包cn.itcast.util,编写工具类JDBCUtils
+        package cn.itcast.util;
+
+        import com.alibaba.druid.pool.DruidDataSourceFactory;
+        
+        import javax.sql.DataSource;
+        import javax.xml.crypto.Data;
+        import java.io.IOException;
+        import java.io.InputStream;
+        import java.sql.Connection;
+        import java.sql.SQLException;
+        import java.util.Properties;
+        
+        /**
+         * JDBC工具类 使用Durid连接池
+         */
+        public class JDBCUtils &#123;
+        
+            private static DataSource ds ;
+        
+            static &#123;
+        
+                try &#123;
+                    //1.加载配置文件
+                    Properties pro = new Properties();
+                    //使用ClassLoader加载配置文件，获取字节输入流
+                    InputStream is = JDBCUtils.class.getClassLoader().getResourceAsStream(&quot;druid.properties&quot;);
+                    pro.load(is);
+        
+                    //2.初始化连接池对象
+                    ds = DruidDataSourceFactory.createDataSource(pro);
+        
+                &#125; catch (IOException e) &#123;
+                    e.printStackTrace();
+                &#125; catch (Exception e) &#123;
+                    e.printStackTrace();
+                &#125;
+            &#125;
+        
+            /**
+             * 获取连接池对象
+             */
+            public static DataSource getDataSource()&#123;
+                return ds;
+            &#125;
+</code></pre>
+<p>​<br>​                /**<br>​                 * 获取连接Connection对象<br>​                 <em>/<br>​                public static Connection getConnection() throws SQLException {<br>​                    return  ds.getConnection();<br>​                }<br>​            }<br>​        5. 创建包cn.itcast.dao,创建类UserDao,提供login方法<br>​<br>​            package cn.itcast.dao;<br>​<br>​            import cn.itcast.domain.User;<br>​            import cn.itcast.util.JDBCUtils;<br>​            import org.springframework.dao.DataAccessException;<br>​            import org.springframework.jdbc.core.BeanPropertyRowMapper;<br>​            import org.springframework.jdbc.core.JdbcTemplate;<br>​<br>​            /</em>*<br>​             * 操作数据库中User表的类<br>​             */<br>​            public class UserDao {<br>​<br>                //声明JDBCTemplate对象共用<br>                private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());</p>
+<pre><code>            /**
+             * 登录方法
+             * @param loginUser 只有用户名和密码
+             * @return user包含用户全部数据,没有查询到，返回null
+             */
+            public User login(User loginUser)&#123;
+                try &#123;
+                    //1.编写sql
+                    String sql = &quot;select * from user where username = ? and password = ?&quot;;
+                    //2.调用query方法
+                    User user = template.queryForObject(sql,
+                            new BeanPropertyRowMapper&lt;User&gt;(User.class),
+                            loginUser.getUsername(), loginUser.getPassword());
+</code></pre>
+<p>​<br>​                        return user;<br>​                    } catch (DataAccessException e) {<br>​                        e.printStackTrace();//记录日志<br>​                        return null;<br>​                    }<br>​                }<br>​            }<br>​<br>​        6. 编写cn.itcast.web.servlet.LoginServlet类<br>​            package cn.itcast.web.servlet;<br>​<br>​            import cn.itcast.dao.UserDao;<br>​            import cn.itcast.domain.User;<br>​<br>​            import javax.servlet.ServletException;<br>​            import javax.servlet.annotation.WebServlet;<br>​            import javax.servlet.http.HttpServlet;<br>​            import javax.servlet.http.HttpServletRequest;<br>​            import javax.servlet.http.HttpServletResponse;<br>​            import java.io.IOException;</p>
+<p>​<br>​            @WebServlet(“/loginServlet”)<br>​            public class LoginServlet extends HttpServlet {</p>
+<p>​<br>​                @Override<br>​                protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {<br>​                    //1.设置编码<br>​                    req.setCharacterEncoding(“utf-8”);<br>​                    //2.获取请求参数<br>​                    String username = req.getParameter(“username”);<br>​                    String password = req.getParameter(“password”);<br>​                    //3.封装user对象<br>​                    User loginUser = new User();<br>​                    loginUser.setUsername(username);<br>​                    loginUser.setPassword(password);<br>​<br>​                    //4.调用UserDao的login方法<br>​                    UserDao dao = new UserDao();<br>​                    User user = dao.login(loginUser);<br>​<br>​                    //5.判断user<br>​                    if(user == null){<br>​                        //登录失败<br>​                        req.getRequestDispatcher(“/failServlet”).forward(req,resp);<br>​                    }else{<br>​                        //登录成功<br>​                        //存储数据<br>​                        req.setAttribute(“user”,user);<br>​                        //转发<br>​                        req.getRequestDispatcher(“/successServlet”).forward(req,resp);<br>​                    }<br>​<br>​                }<br>​<br>                @Override<br>                protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {<br>                    this.doGet(req,resp);<br>                }<br>            }</p>
+<pre><code>    7. 编写FailServlet和SuccessServlet类
+        @WebServlet(&quot;/successServlet&quot;)
+        public class SuccessServlet extends HttpServlet &#123;
+            protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;
+                //获取request域中共享的user对象
+                User user = (User) request.getAttribute(&quot;user&quot;);
+        
+                if(user != null)&#123;
+                    //给页面写一句话
+        
+                    //设置编码
+                    response.setContentType(&quot;text/html;charset=utf-8&quot;);
+                    //输出
+                    response.getWriter().write(&quot;登录成功！&quot;+user.getUsername()+&quot;,欢迎您&quot;);
+                &#125;
+</code></pre>
+<p>​<br>​                }        </p>
+<pre><code>        @WebServlet(&quot;/failServlet&quot;)
+        public class FailServlet extends HttpServlet &#123;
+            protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;
+                //给页面写一句话
+        
+                //设置编码
+                response.setContentType(&quot;text/html;charset=utf-8&quot;);
+                //输出
+                response.getWriter().write(&quot;登录失败，用户名或密码错误&quot;);
+        
+            &#125;
+        
+            protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException &#123;
+                this.doPost(request,response);
+            &#125;
+        &#125;
+
+
+
+    8. login.html中form表单的action路径的写法
+        * 虚拟目录+Servlet的资源路径
+
+    9. BeanUtils工具类，简化数据封装
+        * 用于封装JavaBean的
+        1. JavaBean：标准的Java类
+            1. 要求：
+                1. 类必须被public修饰
+                2. 必须提供空参的构造器
+                3. 成员变量必须使用private修饰
+                4. 提供公共setter和getter方法
+            2. 功能：封装数据
+
+
+        2. 概念：
+            成员变量：
+            属性：setter和getter方法截取后的产物
+                例如：getUsername() --&gt; Username--&gt; username
+
+
+        3. 方法：
+            1. setProperty()
+            2. getProperty()
+            3. populate(Object obj , Map map):将map集合的键值对信息，封装到对应的JavaBean对象中
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://try-18.github.io/Servlet&HTTP&Request%E7%AC%94%E8%AE%B0/" data-id="ckw8pt4rc0003qktd2drhe6sf" data-title="Servlet&amp;HTTP&amp;Request" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Request/" rel="tag">Request</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/bilibili/" rel="tag">bilibili</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/Tomcat&Servlet%E7%AC%94%E8%AE%B0/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Tomcat&amp;Servlet
+        
+      </div>
+    </a>
+  
+  
+    <a href="/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E7%AC%AC%E4%B8%80%E7%AB%A0/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">编译原理第一章</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/2021-11/">2021.11</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/2021-12/">2021.12</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Cookie/" rel="tag">Cookie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTTP/" rel="tag">HTTP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Request/" rel="tag">Request</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Response/" rel="tag">Response</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Servlet/" rel="tag">Servlet</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Session/" rel="tag">Session</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/" rel="tag">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Tomcat/" rel="tag">Tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/" rel="tag">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bilibili/" rel="tag">bilibili</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/bug/" rel="tag">bug</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" rel="tag">编译原理</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Cookie/" style="font-size: 10px;">Cookie</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/JavaWeb/" style="font-size: 20px;">JavaWeb</a> <a href="/tags/Request/" style="font-size: 10px;">Request</a> <a href="/tags/Response/" style="font-size: 10px;">Response</a> <a href="/tags/Servlet/" style="font-size: 13.33px;">Servlet</a> <a href="/tags/Session/" style="font-size: 10px;">Session</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/Tomcat/" style="font-size: 10px;">Tomcat</a> <a href="/tags/Web/" style="font-size: 20px;">Web</a> <a href="/tags/bilibili/" style="font-size: 16.67px;">bilibili</a> <a href="/tags/bug/" style="font-size: 10px;">bug</a> <a href="/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/" style="font-size: 10px;">编译原理</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/12/">December 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/11/">November 2021</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/%E7%BC%96%E7%A8%8Bbug/">编程bug</a>
+          </li>
+        
+          <li>
+            <a href="/Spring%E9%97%AE%E9%A2%98/">Spring问题</a>
+          </li>
+        
+          <li>
+            <a href="/Cookie&Session%E7%AC%94%E8%AE%B0/">Cookie&amp;Session</a>
+          </li>
+        
+          <li>
+            <a href="/Response%E7%AC%94%E8%AE%B0/">Response</a>
+          </li>
+        
+          <li>
+            <a href="/Tomcat&Servlet%E7%AC%94%E8%AE%B0/">Tomcat&amp;Servlet</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2021 Striver<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"jsonPath":"/live2dw/assets/shizuku.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
